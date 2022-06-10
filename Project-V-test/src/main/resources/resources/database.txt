@@ -1,0 +1,65 @@
+drop database if exists pollyzon;
+create database pollyzon;
+use pollyzon;
+
+drop table if exists Utenti;
+create table Utenti(
+id int primary key auto_increment,
+Nome varchar(100),
+Cognome varchar(100),
+N_Telefono varchar(100),
+E_mail varchar(100),
+Residenza varchar(100),
+CF varchar(100),
+Pass varchar(100)
+);
+
+insert into Utenti(nome, cognome, n_telefono, e_mail, residenza, cf, pass) value('ORONZA','CREA','3206932588','ORONZA@GMAIL.COM','Marzabotto','CRERNZ60P62B689L', 'GhkxVZoTHWVl');
+insert into Utenti(nome, cognome, n_telefono, e_mail, residenza, cf, pass) value('DALILA','FORNAIO','3345762810','DALI@YAHOO.IT','Moncalieri','FRNDLL93T63F335R', 'CocC1n3lLa93@');
+insert into Utenti(nome, cognome, n_telefono, e_mail, residenza, cf, pass) value('FRANCESCO', 'DEBENEDETTI', '3305466055', 'FRANCE@LIVE.COM', 'Verucchio', 'DBNFNC92A11L797E', 'LRhPYZZhILtM');
+insert into Utenti(nome, cognome, n_telefono, e_mail, residenza, cf, pass) value('LUIGINA', 'LIGEO', '3492939011', 'LUIGIN@GMAIL.COM', 'Candida', 'LGILNL78H60B590O', '!&mp9CUSiHD$');
+insert into Utenti(nome, cognome, n_telefono, e_mail, residenza, cf, pass) value('COSMINA', 'COLLENGHI', '3078647519', 'COSMIN@LIVE.COM', 'Ivrea', 'CLLCMN62A46E379Z', 'kV!3ynPd5weQ');
+insert into Utenti(nome, cognome, n_telefono, e_mail, residenza, cf, pass) value('CLAUDIO', 'SALOME', '3806266647', 'CLAUDI@OUTLOOK.COM', 'Amato', 'SLMCDL06B21A257T', 'qx0i0x9%ZEt$');
+insert into Utenti(nome, cognome, n_telefono, e_mail, residenza, cf, pass) value('', '', '', '', '', '', '');
+
+select*from Utenti;
+
+drop table if exists Post;
+create table Post(
+id int primary key auto_increment,
+Testo varchar(10000),
+Data date,
+id_utente int,
+foreign key (Id_Utente) references Utenti(Id)
+);
+
+
+insert into Post(testo, data, id_utente) value('Ciao', '2022-04-20', 1);
+insert into Post(testo, data, id_utente) value('Salve a tutti', '2022-04-20', 2);
+insert into Post(testo, data, id_utente) value('Buonasera', '2022-04-20', 3);
+insert into Post(testo, data, id_utente) value('Bellaaaaaa', '2022-04-20', 4);
+insert into Post(testo, data, id_utente) value('Mi fa male la pancia', '2022-04-20', 5);
+insert into Post(testo, data, id_utente) value('Ci Bi Dai', '2022-04-20', 6);
+
+select*from Post;
+
+drop table if exists Commenti;
+create table Commenti(
+id int primary key auto_increment,
+Testo varchar(10000),
+Data date,
+id_utente int,
+id_post int,
+foreign key (Id_Utente) references Utenti(Id),
+foreign key (Id_Post) references Post(Id)
+);
+
+
+insert into Commenti(testo, data, id_utente, id_post) value('Posso fare una domanda?', '2022-04-20', 1, 1);
+insert into Commenti(testo, data, id_utente, id_post) value('Buona Vita', '2022-04-20', 2, 2);
+insert into Commenti(testo, data, id_utente, id_post) value('Non ho capito', '2022-04-20', 3, 3);
+insert into Commenti(testo, data, id_utente, id_post) value('Si stava meglio quando si stava peggio', '2022-04-20', 4, 4);
+insert into Commenti(testo, data, id_utente, id_post) value('Signora mia, siamo in Italia', '2022-04-20', 5, 5);
+insert into Commenti(testo, data, id_utente, id_post) value('Chiama il dottore', '2022-04-20', 6, 6);
+
+select*from Commenti;

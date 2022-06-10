@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="utentistyle.css">
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="utenti.js"></script>
+</head>
+
+<body>
+
+
+
+    <body>
+        <div class="main">
+
+            <!-- LEFT-SIDEBAR -->
+            <div class="leftside">
+                <div class="menu">
+                    <h2 id="logo">LOGO</h2>
+
+                    <a href="index.html">Home</a>
+                    <a href="profilo.html">Profilo</a>
+                    <a href="utenti.html">Utenti</a>
+
+                </div>
+            </div>
+
+
+
+            <!-- MAIN-BODY -->
+            <div class="cntr">
+                <div class="header">
+                    <!-- INSERIMENTO DEL POST -->
+                    <h1>UTENTI</h1>
+                    <br>
+
+                    <!-- RENDER UTENTI -->
+                    <h2>Lista utenti</h2>
+                    <div class="tableutente">
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th scope="col">NOME</th>
+                                    <th scope="col">COGNOME</th>
+                                    <th scope="col">N. TELEFONO</th>
+                                    <th scope="col">E-MAIL</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody id="outputUtenti">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <!-- RIGHT-SIDEBAR -->
+            <div class="rightside">
+
+                <!-- LOGIN -->
+                <div class="login">
+                    <form>
+                        <h1>Login</h1>
+                        <div class="textBox">
+                            <input type="text" placeholder="Username">
+                        </div>
+                        <div class="textBox">
+                            <input type="password" placeholder="Password">
+                        </div>
+                        <div>
+                            <input type="submit" value="Login">
+                        </div>
+                        <div>
+                            Don't have an account?
+                            <br>
+                            <a href="#">Sign up</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </body>
+
+</body>
+
+</html>
