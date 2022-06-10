@@ -66,43 +66,52 @@ $(document).ready(function () {
     function renderPost() {
         $.get('post', function (ris) {
             for (const p of ris) {
-                $(`<div class="box1" >
+                $(`<div class="box1">
                 <div class="d-flex skfjkk">
-            <div class="lkt40">
-                <img src="./img/profilo.jpg" alt="">
-        
-            </div>
-            <div class="pl-2 pt-1">
-                <h6>${p.idUtente}</h6>
-            </div>
-         
-        </div>
-        <hr>
-        <p class="text-muted">
-        ${p.testo}
-        </p>
-        <hr>
-        <div>
-        
-        </div>
-        <div>
-            
-        </div>
-        <div class="d-flex justify-content-around">
-            <div>
-                <i class="fa fa-heart"></i>
-                Like
-            </div>
-            <div>
-                <i class="fa fa-comment"></i>
-                Comments
-            </div>
-            <div>
-                <i class="fa fa-share"></i>
-                Share
-            </div>
-            </div>
-        </div>`).appendTo($('#postList'));
+                    <div class="lkt40">
+                        <img src="./img/polly.jpg" alt="">
+                
+                    </div>
+                    <div class="pl-2 pt-1">
+                        <h6>${p.idUtente}</h6>
+                    </div>
+                 
+                </div>
+                <hr>
+                <p class="text-muted">
+                ${p.testo}
+                </p>
+                
+                <div>
+                
+                </div>
+                <div>
+                    
+                </div>
+                <div class="d-flex justify-content-around">
+                    <div>
+                        <i class="fa fa-heart"></i>
+                        Like
+                    </div>
+                    <div>
+                        <i class="fa fa-comment"></i>
+                        Comments
+                    </div>
+                    <div>
+                        <i class="fa fa-share"></i>
+                        Share
+                    </div>
+                    
+                   
+                    
+                
+                
+                </div>
+                <div>
+                    <hr>
+                <textarea name="" id="" cols="3" rows="3" class="form-control" placeholder="Scrivi il commento" ></textarea>
+                </div>
+                </div>`).appendTo($('#postList'));
         
         }  
     });
