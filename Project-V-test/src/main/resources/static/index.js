@@ -19,18 +19,7 @@ $(document).ready(function () {
         };
     };
 
-    function renderCommenti(idPost) {
-        $.get("commenti/" + idPost, function (ris) {
-            for (const c of ris) {
-                $(`<ul>
-            <li>${c.idCommento}</li>
-            <li>${c.testo}</li>
-            <li>${c.data}</li>
-            <li>${c.idUtente}</li>
-            </ul>`).appendTo($('#postList'));
-            }
-        });
-    }
+    
 
 
 
@@ -112,12 +101,34 @@ $(document).ready(function () {
                     <hr>
                 <textarea name="" id="" cols="3" rows="3" class="form-control" placeholder="Scrivi il commento" ></textarea>
                 </div>
-                </div>`).appendTo($('#postList'));
+
+
+                <div id="commmentiList>
+               
+             </div>
+
+                </div>`
+                
+                ).appendTo($('#postList'));
+                renderCommenti(p.id);
+                
 
             }
         });
     }
     renderPost();
+
+
+    function renderCommenti(idPost) {
+        $.get("commenti/" + idPost, function (ris) {
+            for (const c of ris) {
+                $(` <br>
+                <p name="" id="" cols="3" rows="1" class="form-control">
+                ${c.testo}
+                 </p>`).appendTo($('#commentiList'));
+            }
+        });
+    }
 
 });
 
@@ -157,3 +168,16 @@ $(document).ready(function () {
  }
  renderPost();
 */
+
+/* function renderCommenti(idPost) {
+    $.get("commenti/" + idPost, function (ris) {
+        for (const c of ris) {
+            $(`<ul>
+        <li>${c.idCommento}</li>
+        <li>${c.testo}</li>
+        <li>${c.data}</li>
+        <li>${c.idUtente}</li>
+        </ul>`).appendTo($('#postList'));
+        }
+    });
+} */
