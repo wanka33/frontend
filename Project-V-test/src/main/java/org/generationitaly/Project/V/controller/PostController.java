@@ -27,6 +27,11 @@ public class PostController {
 			return dao.post();
 		}
 		
+		@GetMapping("/withComm")
+		public List<Post> getAllwithComm() {
+			return dao.postCommentati();
+		}
+		
 		@GetMapping("/{id}")
 		public Post getOne(@PathVariable int id) {
 			return dao.post(id);

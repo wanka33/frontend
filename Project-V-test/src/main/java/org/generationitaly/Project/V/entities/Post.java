@@ -1,7 +1,8 @@
 package org.generationitaly.Project.V.entities;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class Post {
 
@@ -9,7 +10,9 @@ public class Post {
 	private String testo;
 	private Timestamp data;
 	private int idUtente;
+	private ArrayList<Commento> commenti;
 	
+
 	public Post(int idPost, String testo, Timestamp data, int idUtente) {
 		super();
 		this.idPost = idPost;
@@ -50,6 +53,13 @@ public class Post {
 		this.idUtente = idUtente;
 	}
 	
+	public ArrayList<Commento> getCommenti() {
+		return commenti;
+	}
+	
+	public void setCommenti(ArrayList<Commento> commenti) {
+		this.commenti = commenti;
+	}
 	
 	
 }

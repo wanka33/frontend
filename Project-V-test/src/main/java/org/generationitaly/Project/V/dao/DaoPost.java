@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.generationitaly.Project.V.entities.Commento;
 import org.generationitaly.Project.V.entities.Post;
-import org.generationitaly.Project.V.entities.Utente;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -28,9 +28,32 @@ public class DaoPost implements IDaoPost {
 		this.password = password;
 	}
 	
+
 	@Override
-	public List<Post> post() {
+    public List<Post> post() {
+        List<Post> ris = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(dbAddress, username, password)) {
+            PreparedStatement stm = conn.prepareStatement("SELECT * FROM post order by data desc");
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                ris.add(new Post(rs.getInt("id"), rs.getString("Testo"), rs.getTimestamp("Data"), rs.getInt("id_utente")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ris;
+    }
+
+	
+	
+	@Override
+	public List<Post> postCommentati() {
 		List<Post> ris = new ArrayList<>();
+		Post nuovoPost = null;
 
 		try (Connection conn = DriverManager.getConnection(dbAddress, username, password)) {
 			PreparedStatement stm = conn.prepareStatement("SELECT * FROM post order by data desc");
@@ -38,8 +61,30 @@ public class DaoPost implements IDaoPost {
 			ResultSet rs = stm.executeQuery();
 
 			while (rs.next()) {
-				ris.add(new Post(rs.getInt("id"), rs.getString("Testo"), rs.getTimestamp("Data"), rs.getInt("id_utente")));
+				
+				nuovoPost = new Post(rs.getInt("id"), rs.getString("Testo"), rs.getTimestamp("Data"), rs.getInt("id_utente"));
+				
+				try (Connection conncmm = DriverManager.getConnection(dbAddress, username, password)) {
+					ArrayList<Commento> commenti = new ArrayList<Commento>();
+					PreparedStatement stmcmm = conn.prepareStatement("SELECT * FROM commenti where id_post = ? order by data desc");
+					stmcmm.setInt(1, nuovoPost.getIdPost());
+					ResultSet rscmm = stmcmm.executeQuery();
+					
+					while(rscmm.next()) {
+						commenti.add(new Commento
+								(rscmm.getInt("id"), rscmm.getString("Testo"), rscmm.getTimestamp("Data"), rscmm.getInt("id_utente"), rscmm.getInt("id_post")));
+						
+						nuovoPost.setCommenti(commenti);
+						
+					}
+					
+					ris.add(nuovoPost);
+					
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +96,7 @@ public class DaoPost implements IDaoPost {
 		List<Post> ris = new ArrayList<>();
 
 		try (Connection conn = DriverManager.getConnection(dbAddress, username, password)) {
-			PreparedStatement stm = conn.prepareStatement("select * from Post where id_utente = 2 order by Data desc");
+			PreparedStatement stm = conn.prepareStatement("select * from Post where id_utente = ? order by Data desc");
 			stm.setInt(1, id);
 			ResultSet rs = stm.executeQuery();
 
@@ -90,8 +135,7 @@ public class DaoPost implements IDaoPost {
 	@Override
 	public boolean aggiungi(Post p) {
 		try (Connection conn = DriverManager.getConnection(dbAddress, username, password)) {
-			PreparedStatement stm = conn.prepareStatement("INSERT INTO post (testo, data, id_utente) "
-					+ "VALUES (?, ?, ?)");
+			PreparedStatement stm = conn.prepareStatement("INSERT INTO post (testo, data, id_utente) VALUE (?, ?, ?)");
 			
 			stm.setString(1, p.getTesto());
 			stm.setTimestamp(2, p.getData());
@@ -136,5 +180,6 @@ public class DaoPost implements IDaoPost {
 			return false;
 		}
 	}
-	
+
+
 }

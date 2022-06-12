@@ -72,7 +72,7 @@ public class DaoUtenti implements IDaoUtenti {
 	public boolean aggiungi(Utente u) {
 		try (Connection conn = DriverManager.getConnection(dbAddress, username, password)) {
 			PreparedStatement stm = conn.prepareStatement("INSERT INTO utenti (nome, cognome, n_telefono, e_mail, residenza, cf, pass) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
+					+ "VALUE (?, ?, ?, ?, ?, ?, ?)");
 			
 			stm.setString(1, u.getNome());
 			stm.setString(2, u.getCognome());
@@ -125,5 +125,28 @@ public class DaoUtenti implements IDaoUtenti {
 			return false;
 		}
 	}
-
+	
+	public Utente login(String e_mail, String pass) {
+		Utente ris = null;
+		
+		try (Connection conn = DriverManager.getConnection(dbAddress)) {
+			
+			PreparedStatement stm = conn.prepareStatement("SELECT * FROM utenti WHERE e_mail = ? AND pass = ?");
+			
+			stm.setString(1, e_mail);
+			stm.setString(2, pass);
+			
+			ResultSet rs = stm.executeQuery();
+			
+			if (rs.next()) {
+				ris = new Utente(rs.getInt("id"), rs.getString("Nome"), rs.getString("Cognome"), rs.getString("N_Telefono"), rs.getString("E_mail"), rs.getString("Residenza"), rs.getString("CF"), rs.getString("Pass"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ris;
+	}
+	
 }

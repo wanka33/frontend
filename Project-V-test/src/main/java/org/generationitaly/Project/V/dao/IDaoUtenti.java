@@ -15,5 +15,7 @@ public interface IDaoUtenti {
 	boolean elimina(int id);
 	
 	boolean modifica(Utente u);
+
+	Utente login(String email, String pw);
 	
 }

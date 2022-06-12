@@ -2,9 +2,12 @@ package org.generationitaly.Project.V.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.generationitaly.Project.V.dao.IDaoUtenti;
 import org.generationitaly.Project.V.entities.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +23,9 @@ public class UtentiController {
 	
 	@Autowired
 	private IDaoUtenti dao;
+	
+	@Autowired 
+    private HttpSession httpSession;
 
 	@GetMapping
 	public List<Utente> getAll(){
@@ -45,5 +51,30 @@ public class UtentiController {
 	public void update(@RequestBody Utente utente) {
 		dao.modifica(utente);
 	}
+	
+	@GetMapping("/login")
+	public Utente login(@RequestBody Utente utente) {
+		Utente u = dao.login(utente.getEmail(),utente.getPw());
+		if (u != null) {
+			httpSession.setAttribute("sessionUser",utente);
+		}
+		return u;		
+	}
+	
+	public void createSession(Utente u) {
+		Object sessionUser = httpSession.getAttribute("sessionUser");
+		
+		if (sessionUser == null) {
+
+		} else {
+	
+			if (sessionUser instanceof User) {
+				User user = (User) sessionUser;
+
+			}
+			
+		}
+	}
+	
 	
 }

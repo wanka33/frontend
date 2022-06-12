@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.generationitaly.Project.V.entities.Commento;
-import org.generationitaly.Project.V.entities.Post;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -73,7 +72,7 @@ public class DaoCommenti implements IDaoCommenti {
 	public boolean aggiungi(Commento c) {
 		try (Connection conn = DriverManager.getConnection(dbAddress, username, password)) {
 			PreparedStatement stm = conn.prepareStatement("INSERT INTO commenti (testo, data, id_utente, id_post) "
-					+ "VALUES (?, ?, ?, ?)");
+					+ "VALUE (?, ?, ?, ?)");
 			
 			stm.setString(1, c.getTesto());
 			stm.setTimestamp(2, c.getData());
